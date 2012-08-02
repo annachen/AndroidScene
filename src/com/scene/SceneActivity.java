@@ -1,6 +1,8 @@
 package com.scene;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,11 +23,12 @@ public class SceneActivity extends Activity {
 	protected static final String TAG = "SceneActivity";
 	
 	protected CvCamera mView;
+	protected Looper mLooper;
+	protected Handler mHandler;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		
 		if (!OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_2, this, mOpenCVCallBack)){
 			Log.e(TAG, "Cannot connect to OpenCV Manager");
@@ -53,6 +56,8 @@ public class SceneActivity extends Activity {
 					// Create and set View
 					setContentView(R.layout.activity_scene);
 					mView = (CvCamera) findViewById(R.id.mainView);
+					mLooper = Looper.getMainLooper();
+					mHandler = new Handler(mLooper);
 					
 					//mView = new CvCamera(mAppContext);
 					//setContentView(mView);
