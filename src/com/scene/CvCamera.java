@@ -157,8 +157,13 @@ public class CvCamera extends SurfaceView implements SurfaceHolder.Callback, Run
 				
 				grabFrame(mCamera);
 				
-				mProcessor.addFrame(mBuffer);
-				Mat m = mProcessor.getOutput();
+				Mat m;
+				//if(mFrameCount %2 == 0){
+					mProcessor.addFrame(mBuffer);
+					m = mProcessor.getOutput();
+				//}
+				//else
+				//	m = null;
 				if(m != null){
 					mBitmap = Bitmap.createBitmap(m.cols(), m.rows(), Bitmap.Config.ARGB_8888);
 					Utils.matToBitmap(m, mBitmap);
@@ -179,13 +184,13 @@ public class CvCamera extends SurfaceView implements SurfaceHolder.Callback, Run
 				
 				mFrameCount++;
 			}
-			
+			/*
 			try{
 				Thread.sleep(100);
 			} catch(Exception e) {
 				Log.e(TAG, e.toString());
 			}
-
+			 */
 			//mMainHandler.post(this);
 		}
 		
